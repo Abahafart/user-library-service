@@ -1,0 +1,15 @@
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:4444/user-library?tlsVersion=TLSv1.2
+    username: root
+    password: rootpw
+    pool:
+      enabled: true
+      initial-size: 1
+      max-size: 20
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    url: jdbc:mysql://localhost:4444/user-library?tlsVersion=TLSv1.2
+    user: root
+    password: rootpw
