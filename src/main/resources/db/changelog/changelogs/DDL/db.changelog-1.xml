@@ -37,4 +37,132 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="20230501163510" author="mistborn">
+        <createTable tableName="tbl_person">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="id_tbl_person"/>
+            </column>
+            <column name="name" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birthdate" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date" type="timestamptz"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20230501164610" author="mistborn">
+        <createTable tableName="tbl_address">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="id_tbl_address"/>
+            </column>
+            <column name="id_person" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_country" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="mediumint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="neighborhood" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="municipality" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zipcode" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="20230501165810" author="mistborn">
+        <addForeignKeyConstraint baseTableName="tbl_address" baseColumnNames="id_person"
+                                 constraintName="tbl_address_id_person"
+                                 referencedTableName="tbl_person"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="tbl_address" baseColumnNames="id_country"
+                                 constraintName="tbl_address_id_country"
+                                 referencedTableName="cat_country"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="20230501170110" author="mistborn">
+        <createTable tableName="tbl_user">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tbl_user_id"/>
+            </column>
+            <column name="id_person" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_status" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date" type="timestamptz"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20230501170810" author="mistborn">
+        <addForeignKeyConstraint baseTableName="tbl_user" baseColumnNames="id_person"
+                                 constraintName="tbl_user_id_person"
+                                 referencedTableName="tbl_person"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="tbl_user" baseColumnNames="id_status"
+                                 constraintName="tbl_user_id_status"
+                                 referencedTableName="cat_status"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="20230501171010" author="mistborn">
+        <createTable tableName="tbl_nationality_person">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tbl_nationality_person_id"/>
+            </column>
+            <column name="id_person" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_country" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date" type="timestamptz"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="tbl_nationality_person" baseColumnNames="id_person"
+                                 constraintName="tbl_nationality_person_id_person"
+                                 referencedTableName="tbl_person"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="tbl_nationality_person" baseColumnNames="id_country"
+                                 constraintName="tbl_nationality_person_id_country"
+                                 referencedTableName="cat_country"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 </databaseChangeLog>
